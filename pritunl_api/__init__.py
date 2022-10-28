@@ -46,7 +46,7 @@ class Pritunl:
         def get(self, org_id=None, usr_id=None):
             try:
                 if org_id and usr_id:
-                    self.r = self.root.auth_request(method="GET", path="/key/{0}/{1}.tar".format(org_id, usr_id))
+                    self.r = self.root.auth_request(method="GET", path="/key/{0}/{1}".format(org_id, usr_id))
                 if self.r.status_code == 200:
                     return self.r
                 raise PritunlErr("{0}:{1}".format(sys._getframe().f_code.co_name, self.root.BASE_URL))
