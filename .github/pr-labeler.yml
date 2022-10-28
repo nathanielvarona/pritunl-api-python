@@ -1,6 +1,6 @@
 'type: breaking': ['breaking/*']
 'type: feature': ['feature/*', 'features/*', 'feat/*']
-'type: bugs': ['fix/*', 'fixes/*', 'bugfix/*', 'bugfixes/*']
+'type: bugs': ['fix/*', 'fixes/*', 'bug/*', 'bugs/*', 'bugfixes/*']
 'type: maintenance': ['maintenance/*']
 'type: documentation': ['doc/*', 'docs/*', 'documentation/*', 'documentations/*']
 'type: automation': ['automation/*', 'actions/*', 'github/*']
