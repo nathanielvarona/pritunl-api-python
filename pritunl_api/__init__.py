@@ -16,7 +16,7 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-version = '1.0.1'
+version = '1.0.2'
 __version__ = version
 
 # Error exception handler
