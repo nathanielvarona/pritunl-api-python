@@ -12,7 +12,7 @@ categories:
     labels: 'type: feature'
 
   - title: '🐞 Bug Fixes'
-    labels: 'type: bug'
+    labels: 'type: bugs'
 
   - title: '🔧 Maintenance'
     labels: 'type: maintenance'

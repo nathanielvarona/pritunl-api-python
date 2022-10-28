@@ -1,0 +1,10 @@
+'type: breaking': ['breaking/*']
+'type: feature': ['feature/*', 'features/*', 'feat/*']
+'type: bugs': ['fix/*', 'fixes/*', 'bugfix/*', 'bugfixes/*']
+'type: maintenance': ['maintenance/*']
+'type: documentation': ['doc/*', 'docs/*', 'documentation/*', 'documentations/*']
+'type: automation': ['automation/*', 'actions/*', 'github/*']
+'type: dependencies': ['dependencies/*']
+'type: security': ['security/*']
+
+skip-changelog: ['master']
