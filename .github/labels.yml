@@ -22,3 +22,6 @@
 - name: 'type: security'
   description: Security Changes.
   color: eb2d2d
+- name: 'hacktoberfest-accepted'
+  description: Hacktoberfest Participation.
+  color: 5AAEAD

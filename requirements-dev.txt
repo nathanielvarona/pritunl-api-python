@@ -1,0 +1,4 @@
+-e .
+
+ptpython==3.0.20
+ipython==8.5.0
