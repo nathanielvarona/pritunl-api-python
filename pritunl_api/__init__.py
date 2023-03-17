@@ -1,6 +1,4 @@
-#!/usr/bin/python
-
-# Created by Ijat.my
+__version__ = "1.0.3"
 
 import json
 import logging as log
@@ -12,14 +10,11 @@ import random
 import requests
 import time
 import uuid
-from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
-requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+requests.packages.urllib3.disable_warnings(
+    requests.packages.urllib3.exceptions.InsecureRequestWarning)
 
-version = '1.0.2'
-__version__ = version
 
-# Error exception handler
 class PritunlErr(Exception):
     def __init__(self, msg):
         log.error(msg)
@@ -28,7 +23,7 @@ class PritunlErr(Exception):
 
 class Pritunl:
     def __init__(self, url, token, secret):
-        self.BASE_URL = url
+        self.BASE_URL = self.clean_url(url)
         self.API_TOKEN = token
         self.API_SECRET = secret
 
@@ -351,3 +346,5 @@ class Pritunl:
             timeout=30
         )
 
+    def clean_url(self, url):
+        return url.rstrip('/')
