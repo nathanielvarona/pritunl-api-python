@@ -42,6 +42,11 @@ repl = [
     "ptpython==3.0.23",
     "ipython==8.11.0"
 ]
+pypi = [
+    "build==0.10.0",
+    "twine==4.0.2",
+    "pdm==2.4.9",
+]
 
 [tool.pdm]
 version = { source = "file", path = "pritunl_api/__init__.py" }

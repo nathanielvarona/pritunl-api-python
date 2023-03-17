@@ -17,6 +17,5 @@ WORKDIR ${SOURCE_DIR}
 COPY . ${SOURCE_DIR}
 
 RUN python -m pip install --upgrade pip
-RUN python -m pip install --requirement ${SOURCE_DIR}/requirements-dev.txt
 
 CMD [ "ptipython" ]

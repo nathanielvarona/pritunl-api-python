@@ -100,7 +100,7 @@ Building a Development Container
 docker buildx build . \
   --progress plain \
   --file dev.Dockerfile \
-  --tag pritunl_api:development
+  --tag pritunl-api:development
 ```
 
 Running a Development Container
@@ -108,8 +108,8 @@ Running a Development Container
 ```sh
 docker run --rm -it \
   --volume $(PWD):/pritunl-api \
-  --env-file EnvironmentFile \
-  pritunl_api:development
+  --env-file .env \
+  pritunl-api:development
 ```
 
 ***
