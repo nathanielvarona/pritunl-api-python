@@ -4,7 +4,7 @@
 'type: maintenance': ['maintenance/*']
 'type: documentation': ['doc/*', 'docs/*', 'documentation/*', 'documentations/*']
 'type: automation': ['automation/*', 'actions/*', 'github/*']
-'type: dependencies': ['dependencies/*']
+'type: dependencies': ['dependencies/*', 'deps/*']
 'type: security': ['security/*']
 
 skip-changelog: ['master']
