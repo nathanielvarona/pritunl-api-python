@@ -8,32 +8,60 @@ idea on how to use this.
 Basically this api client use almost same command like in the doc.
 For example:
 
-## Examples
+
+## Quick Usage
+
+```bash
+import os
+
+from pritunl_api import Pritunl
+
+PRITUNL_BASE_URL = os.environ.get('PRITUNL_BASE_URL')
+PRITUNL_API_TOKEN = os.environ.get('PRITUNL_API_TOKEN')
+PRITUNL_API_SECRET= os.environ.get('PRITUNL_API_SECRET')
+
+pritunl = Pritunl(
+    url=PRITUNL_BASE_URL,
+    token=PRITUNL_API_TOKEN,
+    secret=PRITUNL_API_SECRET
+    )
+
+```
+
+## Example
 
 * Example 1
 
-  [(in doc)](https://pritunl.com/api.html) `GET /server`
+  [(in source)](https://github.com/pritunl/pritunl-web/blob/master/handlers/server.go#L9-L30) `GET /server/:server_id`
 
-  (this) `api.server.get()`
+  ```python
+  pritunl.server.get()
+  ```
 
 * Example 2
 
-  [(in doc)](https://pritunl.com/api.html) `PUT /server/:server_id/organization/:organization_id`
+  [(in source)](https://github.com/pritunl/pritunl-web/blob/master/handlers/server.go#L140-L150) `PUT /server/:server_id/organization/:organization_id`
 
-  (this) `api.server.put(srv_id='', org_id='')`
+  ```python
+  pritunl.server.put(srv_id='', org_id='')
+  ```
 
 * Example 3
 
-  [(in doc)](https://pritunl.com/api.html) `DELETE /user/:organization_id/:user_id`
+  [(in source)](https://github.com/pritunl/pritunl-web/blob/master/handlers/user.go#L142-L152) `DELETE /user/:organization_id/:user_id`
 
-  (this) `api.user.delete(org_id='', usr_id='')`
+  ```python
+  pritunl.user.delete(org_id='', usr_id='')
+  ```
 
 * Example 4
 
-  [(in doc)](https://pritunl.com/api.html) `POST /server**`
+  [(in source)](https://github.com/pritunl/pritunl-web/blob/master/handlers/server.go#L81-L97) `POST /server**`
 
-  (this) `api.server.post(data={
-   'name': 'new server name'})`
+  ```python
+  pritunl.server.post(data={
+    'name': 'new server name'})
+  ```
 
    \* _If there is data available, you must pass it through data parameter._
 
@@ -42,22 +70,26 @@ For example:
 
 * Example 5
 
-  [(in doc)](https://pritunl.com/api.html) `PUT /user/:organization_id/:user_id`
+  [(in source)](https://github.com/pritunl/pritunl-web/blob/master/handlers/user.go#L122-L140) `PUT /user/:organization_id/:user_id`
 
-  (this) `api.user.put(org_id='', usr_id='', data={
-   'name': 'modified org name',
-   'disabled': True})`
+  ```python
+  api.user.put(org_id='', usr_id='', data={
+    'name': 'modified org name',
+    'disabled': True})
+  ```
 
 
 ## Installation
 
-```sh
-export GITHUB_HANDLER = "<maintainer username>"
-pip install git+https://github.com/${GITHUB_HANDLER}/pritunl-api-python.git@master#egg=pritunl-api
-
+```bash
+pip install pritunl-api
 ```
-### TODO 
-To be replaced with simple `pip install pritunl-api` if the the main author published it to PyPi.
+
+Include REPL Tools
+
+```bash
+pip install pritunl-api[repl]
+```
 
 ## API Development
 
@@ -84,4 +116,4 @@ docker run --rm -it \
 This api client is not fully complete. There are some features missing,
 feel free to fork and pull request to add new features.
 
-Tested working on **Pritunl 1.26.1188.41**.
+Tested working on **`Pritunl v1.30.3354.99`**.

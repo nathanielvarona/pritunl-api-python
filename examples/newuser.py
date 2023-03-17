@@ -10,7 +10,7 @@ def getUserByName(Users,Name):
 if __name__ == '__main__':
     import argparse
     from config import pri as pri
-    
+
     parser = argparse.ArgumentParser()
     parser.add_argument("-n", "--name", required=True)
     parser.add_argument("-e", "--email", required=True)
@@ -31,7 +31,7 @@ if __name__ == '__main__':
         if user is not None and args.force is True:
             pri.user.delete(org_id=x[0]['id'], usr_id=user['id'])
             user = None
-        
+
         if user is None:
             #POST payload
             payload={
@@ -56,4 +56,3 @@ if __name__ == '__main__':
 
         # Get user key download link
         print(pri.key.get(org_id=x[0]['id'], usr_id=getUserByName(q,args.name)['id']).content.decode('utf-8'))
-

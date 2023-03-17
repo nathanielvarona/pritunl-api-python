@@ -37,4 +37,3 @@ if pri.ping():
     z = pri.key.get(org_id=x[0]['id'], usr_id=q[0]['id'])
 
     print(z)
-

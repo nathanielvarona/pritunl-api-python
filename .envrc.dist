@@ -1,0 +1,3 @@
+export PRITUNL_BASE_URL=""
+export PRITUNL_API_TOKEN=""
+export PRITUNL_API_SECRET=""
