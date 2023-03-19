@@ -30,15 +30,15 @@ pritunl = Pritunl(
 
 ## Example
 
-* Example 1
+* __Example 1:__
 
-  [(in source)](https://github.com/pritunl/pritunl-web/blob/master/handlers/server.go#L9-L30) `GET /server/:server_id`
+  [(in source)](https://github.com/pritunl/pritunl-web/blob/master/handlers/server.go#L9-L30) `GET /server`
 
   ```python
   pritunl.server.get()
   ```
 
-* Example 2
+* __Example 2:__
 
   [(in source)](https://github.com/pritunl/pritunl-web/blob/master/handlers/server.go#L140-L150) `PUT /server/:server_id/organization/:organization_id`
 
@@ -46,7 +46,7 @@ pritunl = Pritunl(
   pritunl.server.put(srv_id='', org_id='')
   ```
 
-* Example 3
+* __Example 3:__
 
   [(in source)](https://github.com/pritunl/pritunl-web/blob/master/handlers/user.go#L142-L152) `DELETE /user/:organization_id/:user_id`
 
@@ -54,7 +54,7 @@ pritunl = Pritunl(
   pritunl.user.delete(org_id='', usr_id='')
   ```
 
-* Example 4
+* __Example 4:__
 
   [(in source)](https://github.com/pritunl/pritunl-web/blob/master/handlers/server.go#L81-L97) `POST /server**`
 
@@ -68,7 +68,7 @@ pritunl = Pritunl(
    \* _Command above works well because there are template available for
    creating a new server._
 
-* Example 5
+* __Example 5:__
 
   [(in source)](https://github.com/pritunl/pritunl-web/blob/master/handlers/user.go#L122-L140) `PUT /user/:organization_id/:user_id`
 
