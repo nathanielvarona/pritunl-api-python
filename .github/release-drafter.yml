@@ -18,7 +18,7 @@ categories:
     labels: 'type: maintenance'
 
   - title: '📜 Documentations'
-    label: 'type: docs'
+    label: 'type: documentation'
 
   - title: '🏗️ Automation'
     label: 'type: automation'
@@ -38,9 +38,9 @@ version-resolver:
       - 'type: feature'
   patch:
     labels:
-      - 'type: bug'
+      - 'type: bugs'
       - 'type: maintenance'
-      - 'type: docs'
+      - 'type: documentation'
       - 'tyep: automation'
       - 'type: dependencies'
       - 'type: security'
