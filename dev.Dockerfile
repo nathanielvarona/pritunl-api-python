@@ -21,7 +21,7 @@ RUN curl -sSL https://install.python-poetry.org | python -
 ENV PATH="/root/.local/bin:$PATH:"
 RUN poetry completions bash >> ~/.bash_completion
 
-RUN poetry install --no-root --extras=repl
+RUN poetry install --no-root --extras=repl --extras=cli
 
 ENV SHELL=/bin/bash
 CMD [ "bash" ]

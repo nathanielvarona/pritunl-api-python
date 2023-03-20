@@ -12,6 +12,15 @@ Install from our [PyPI Project Repository](https://pypi.org/project/pritunl-api/
 pip install pritunl-api
 ```
 
+Beyond the Core API Client Library, we also added the executable distribution in this project. To enable the CLI feature just add extra `cli` during the pip installation.
+
+```bash
+pip install pritunl-api[cli]
+```
+
+Proceed to the [CLI Usage](#cli-usage) for the complete commands syntax.
+
+
 ## API Usage
 
 ```python
@@ -78,6 +87,62 @@ pritunl.<FEATURE>.<METHOD>
     'disabled': True})
   ```
 
+## CLI Usage
+
+### General Usage
+
+```txt
+Usage: pritunl-api-cli [OPTIONS] COMMAND [ARGS]...
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  create-user
+  delete-user
+  get-user
+  update-user
+```
+
+### Create User
+
+```bash
+pritunl-api-cli create-user --help
+```
+
+```text
+Usage: pritunl-api-cli create-user [OPTIONS]
+
+Options:
+  --org-name TEXT
+  --user-name TEXT
+  --user-email TEXT
+  --from-csv-file PATH
+  --help                Show this message and exit.
+```
+
+_Example 2: Create a Single User_
+
+```bash
+pritunl-api-cli create-user \
+  --org-name pritunl-dev \
+  --user-name developer2 \
+  --user-email developer2@domain.tld
+```
+
+_Example 2: Create Users from CSV_
+
+```bash
+pritunl-api-cli create-user \
+  --from-csv-file ./users.csv
+```
+
+For more CLI feature, please check the help options.
+
+```bash
+pritunl-api-cli --help
+pritunl-api-cli <SUBCOMMAND> --help
+```
 
 ## API Development
 
