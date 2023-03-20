@@ -1,31 +1,31 @@
-# Pritunl API client for Python 3
+# Pritunl API Client for Python 3
 
-This is a simple api client written in Python 3. View example in
-example.py.
-Python 2 is not supported. You need to refer Pritunl api doc to get the
-idea on how to use this.
+This is a simple API Client written in Python 3. 
 
-Basically this api client use almost same command like in the doc.
-For example:
+You need to refer Pritunl [API Documentationl](https://docs.pritunl.com/docs/api) to get an idea of how to use this. This API client uses almost the same command as in the [API Handlers](https://github.com/pritunl/pritunl-web/tree/master/handlers).
 
+## Installation
 
-## Quick Usage
+Install from our [PyPI Project Repository](https://pypi.org/project/pritunl-api/)
 
 ```bash
-import os
+pip install pritunl-api
+```
 
+## API Usage
+
+```python
+import os
 from pritunl_api import Pritunl
 
-PRITUNL_BASE_URL = os.environ.get('PRITUNL_BASE_URL')
-PRITUNL_API_TOKEN = os.environ.get('PRITUNL_API_TOKEN')
-PRITUNL_API_SECRET= os.environ.get('PRITUNL_API_SECRET')
-
 pritunl = Pritunl(
-    url=PRITUNL_BASE_URL,
-    token=PRITUNL_API_TOKEN,
-    secret=PRITUNL_API_SECRET
-    )
+  url=os.environ.get('PRITUNL_BASE_URL'),
+  token=os.environ.get('PRITUNL_API_TOKEN'),
+  secret=os.environ.get('PRITUNL_API_SECRET')
+)
 
+# Your Pritunl API Client Object is now ready to use!
+pritunl.<FEATURE>.<METHOD>
 ```
 
 ## Example
@@ -63,9 +63,9 @@ pritunl = Pritunl(
     'name': 'new server name'})
   ```
 
-   \* _If there is data available, you must pass it through data parameter._
+   \* _If there is data available, you must pass it through the data parameter._
 
-   \* _Command above works well because there are template available for
+   \* _The command above works_ well because there are templates available for
    creating a new server._
 
 * __Example 5:__
@@ -79,24 +79,25 @@ pritunl = Pritunl(
   ```
 
 
-## Installation
+## API Development
+
+### Using Virtual Environment
 
 ```bash
-pip install pritunl-api
+pip install -e .
 ```
 
 Include REPL Tools
 
 ```bash
-pip install pritunl-api[repl]
+pip install -e .[repl]
+ptipython
 ```
 
-## API Development
-
-### Docker Environment
+### Using Docker Environment
 
 Building a Development Container
-```sh
+```bash
 docker buildx build . \
   --progress plain \
   --file dev.Dockerfile \
@@ -104,16 +105,14 @@ docker buildx build . \
 ```
 
 Running a Development Container
-
-```sh
+```bash
 docker run --rm -it \
   --volume $(PWD):/pritunl-api \
   --env-file .env \
-  pritunl-api:development
+  pritunl-api:development poetry shell
 ```
 
-***
-This api client is not fully complete. There are some features missing,
-feel free to fork and pull request to add new features.
+This API client is not fully complete. There are some features missing,
+feel free to fork and pull requests to add new features.
 
 Tested working on **`Pritunl v1.30.3354.99`**.
