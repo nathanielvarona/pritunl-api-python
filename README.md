@@ -1,24 +1,24 @@
 # Pritunl API Client for Python 3
 
-This is a simple API Client written in Python 3. 
+This is a simple [Pritunl](https://pritunl.com/) API Client written in Python 3.
 
-You need to refer Pritunl [API Documentationl](https://docs.pritunl.com/docs/api) to get an idea of how to use this. This API client uses almost the same command as in the [API Handlers](https://github.com/pritunl/pritunl-web/tree/master/handlers).
+You need to refer to Pritunl [API Documentation](https://docs.pritunl.com/docs/api) to understand how to use this. This API client uses almost the same command as the [API Handlers](https://github.com/pritunl/pritunl-web/tree/master/handlers).
 
 ## Installation
 
-Install from our [PyPI Project Repository](https://pypi.org/project/pritunl-api/)
+Install the published package using `pip` from our [PyPI project repository](https://pypi.org/project/pritunl-api/).
 
 ```bash
 pip install pritunl-api
 ```
 
-Beyond the Core API Client Library, we also added the executable distribution in this project. To enable the CLI feature just add extra `cli` during the pip installation.
+Beyond the core API client library, we also added the executable distribution in this project. Add extra `cli` during the PIP installation to enable the CLI feature.
 
 ```bash
 pip install pritunl-api[cli]
 ```
 
-Proceed to the [CLI Usage](#cli-usage) for the complete commands syntax.
+Proceed to the [CLI Usage](#cli-usage) for the syntax of the complete commands.
 
 
 ## API Usage
@@ -82,14 +82,30 @@ pritunl.<FEATURE>.<METHOD>
   [(in source)](https://github.com/pritunl/pritunl-web/blob/master/handlers/user.go#L122-L140) `PUT /user/:organization_id/:user_id`
 
   ```python
-  api.user.put(org_id='', usr_id='', data={
+  pritunl.user.put(org_id='', usr_id='', data={
     'name': 'modified org name',
     'disabled': True})
   ```
 
 ## CLI Usage
 
-### General Usage
+Before using the CLI, provide the Pritunl API URL and Administrative Credential in our Environment Variables.
+
+```bash
+export PRITUNL_BASE_URL="https://vpn.domain.tld/"
+export PRITUNL_API_TOKEN="XXXXXXXXXXXXXXXXXXXXXX"
+export PRITUNL_API_SECRET="XXXXXXXXXXXXXXXXXXXXX"
+```
+
+### Available Commands
+
+> As of this period of development, the feature is limited.
+
+To show the available commands, use the help option.
+
+```bash
+pritunl-api-cli --help
+```
 
 ```txt
 Usage: pritunl-api-cli [OPTIONS] COMMAND [ARGS]...
@@ -104,7 +120,7 @@ Commands:
   update-user
 ```
 
-### Create User
+For available command options and syntax, use the feature command help option.
 
 ```bash
 pritunl-api-cli create-user --help
@@ -121,13 +137,15 @@ Options:
   --help                Show this message and exit.
 ```
 
-_Example 2: Create a Single User_
+#### Create User
+
+_Example 1: Create a Single User_
 
 ```bash
 pritunl-api-cli create-user \
-  --org-name pritunl-dev \
-  --user-name developer2 \
-  --user-email developer2@domain.tld
+  --org-name develop-network \
+  --user-name developer_1 \
+  --user-email developer_1@domain.tld
 ```
 
 _Example 2: Create Users from CSV_
@@ -137,11 +155,49 @@ pritunl-api-cli create-user \
   --from-csv-file ./users.csv
 ```
 
-For more CLI feature, please check the help options.
+#### Delete User
 
 ```bash
-pritunl-api-cli --help
-pritunl-api-cli <SUBCOMMAND> --help
+pritunl-api-cli delete-user \
+  --org-name develop-network \
+  --user-name developer_1
+```
+
+#### Get User Information or Generate a new Key
+
+```bash
+pritunl-api-cli get-user \
+  --org-name develop-network \
+  --user-name developer_1
+```
+
+> Or get only the profile key
+
+```bash
+pritunl-api-cli get-user \
+  --org-name develop-network \
+  --user-name developer_1 \
+  --get-profile-key-only
+```
+
+#### Update a User
+
+To disable a user
+
+```bash
+pritunl-api-cli update-user \
+  --org-name develop-network \
+  --user-name developer_1 \
+  --disable
+```
+
+To enable a user
+
+```bash
+pritunl-api-cli update-user \
+  --org-name developer-network \
+  --user-name developer_1 \
+  --enable
 ```
 
 ## API Development
@@ -177,7 +233,6 @@ docker run --rm -it \
   pritunl-api:development poetry shell
 ```
 
-This API client is not fully complete. There are some features missing,
-feel free to fork and pull requests to add new features.
+This API client is not fully complete. Some features are missing, feel free to fork and pull requests to add new features.
 
 Tested working on **`Pritunl v1.30.3354.99`**.
