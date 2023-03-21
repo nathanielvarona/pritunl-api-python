@@ -23,6 +23,16 @@ Proceed to the [CLI Usage](#cli-usage) for the syntax of the complete commands.
 
 ## API Usage
 
+Before using the API library including the use of the CLI feature, we need to provide the Pritunl API URL and administrative credentials in our environment variables.
+
+```bash
+export PRITUNL_BASE_URL="https://vpn.domain.tld/"
+export PRITUNL_API_TOKEN="XXXXXXXXXXXXXXXXXXXXXX"
+export PRITUNL_API_SECRET="XXXXXXXXXXXXXXXXXXXXX"
+```
+
+Initializing an API object.
+
 ```python
 import os
 from pritunl_api import Pritunl
@@ -68,34 +78,28 @@ pritunl.<FEATURE>.<METHOD>
   [(in source)](https://github.com/pritunl/pritunl-web/blob/master/handlers/server.go#L81-L97) `POST /server**`
 
   ```python
-  pritunl.server.post(data={
-    'name': 'new server name'})
+  pritunl.server.post(
+    data={
+      'name': 'new server name'
+    }
+  )
   ```
-
-   \* _If there is data available, you must pass it through the data parameter._
-
-   \* _The command above works_ well because there are templates available for
-   creating a new server._
+   * _If there is data available, you must pass it through the data parameter._
+   * _The command above works well because there are templates available for creating a new server._
 
 * __Example 5:__
 
   [(in source)](https://github.com/pritunl/pritunl-web/blob/master/handlers/user.go#L122-L140) `PUT /user/:organization_id/:user_id`
 
   ```python
-  pritunl.user.put(org_id='', usr_id='', data={
-    'name': 'modified org name',
-    'disabled': True})
+  pritunl.user.put(org_id='', usr_id='',
+    data={
+      'name': 'modified org name',
+      'disabled': True
+  })
   ```
 
 ## CLI Usage
-
-Before using the CLI, provide the Pritunl API URL and Administrative Credential in our Environment Variables.
-
-```bash
-export PRITUNL_BASE_URL="https://vpn.domain.tld/"
-export PRITUNL_API_TOKEN="XXXXXXXXXXXXXXXXXXXXXX"
-export PRITUNL_API_SECRET="XXXXXXXXXXXXXXXXXXXXX"
-```
 
 ### Available Commands
 
@@ -163,7 +167,7 @@ pritunl-api-cli delete-user \
   --user-name developer_1
 ```
 
-#### Get User Information or Generate a new Key
+#### Get User Information
 
 ```bash
 pritunl-api-cli get-user \
@@ -171,7 +175,7 @@ pritunl-api-cli get-user \
   --user-name developer_1
 ```
 
-> Or get only the profile key
+> Or get (regenerate) the profile key of a user
 
 ```bash
 pritunl-api-cli get-user \
@@ -204,6 +208,15 @@ pritunl-api-cli update-user \
 
 ### Using Virtual Environment
 
+Create a virtual environment and activate it.
+
+```bash
+python -m venv ./venv
+source ./venv/bin/activate
+```
+
+> Or simple use other Python Version Manager like [pyenv](https://github.com/pyenv/pyenv).
+
 ```bash
 pip install -e .
 ```
@@ -230,7 +243,7 @@ Running a Development Container
 docker run --rm -it \
   --volume $(PWD):/pritunl-api \
   --env-file .env \
-  pritunl-api:development poetry shell
+  pritunl-api:development
 ```
 
 This API client is not fully complete. Some features are missing, feel free to fork and pull requests to add new features.
