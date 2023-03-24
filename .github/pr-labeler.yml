@@ -7,5 +7,6 @@
 'type: automation': ['automation/*', 'actions/*', 'github/*']
 'type: dependencies': ['dependencies/*', 'deps/*']
 'type: security': ['security/*']
+'type: chore': ['chore/*']
 
 skip-changelog: ['master']

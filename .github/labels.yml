@@ -25,6 +25,9 @@
 - name: 'type: security'
   description: Security Changes.
   color: eb2d2d
+- name: 'type: chore'
+  description: Chores.
+  color: 38646B
 - name: 'hacktoberfest-accepted'
   description: Hacktoberfest Participation.
   color: 5AAEAD
