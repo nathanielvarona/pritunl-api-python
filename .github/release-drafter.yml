@@ -29,8 +29,11 @@ categories:
   - title: '🩺 Dependencies'
     label: 'type: dependencies'
 
-  - title: '🧹 Security'
+  - title: '🔒 Security'
     label: 'type: security'
+
+  - title: '🧹 Chore'
+    label: 'type: chore'
 
 version-resolver:
   major:
@@ -48,6 +51,7 @@ version-resolver:
       - 'tyep: automation'
       - 'type: dependencies'
       - 'type: security'
+      - 'type: chore'
 
 branches:
   - 'master'
