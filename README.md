@@ -18,7 +18,7 @@ Beyond the core API client library, we also added the executable distribution in
 pip install pritunl-api[cli]
 ```
 
-Proceed to the [CLI Usage](#cli-usage) for the syntax of the complete commands.
+Proceed to the [CLI Usage](#cli-usage) for the complete command options and syntax.
 
 
 ## API Usage
@@ -96,7 +96,8 @@ pritunl.<FEATURE>.<METHOD>
     data={
       'name': 'modified org name',
       'disabled': True
-  })
+    }
+  )
   ```
 
 ## CLI Usage
@@ -137,8 +138,9 @@ Options:
   --org-name TEXT
   --user-name TEXT
   --user-email TEXT
+  --yubikey-id TEXT
   --from-csv-file PATH
-  --help                Show this message and exit.
+  --help                Show this message and exit.              Show this message and exit
 ```
 
 #### Create User

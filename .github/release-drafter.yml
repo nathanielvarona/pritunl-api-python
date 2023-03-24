@@ -11,6 +11,9 @@ categories:
   - title: '💡 New Features'
     labels: 'type: feature'
 
+  - title: '💡 Improvements'
+    labels: 'type: improvement'
+
   - title: '🐞 Bug Fixes'
     labels: 'type: bugs'
 
@@ -38,6 +41,7 @@ version-resolver:
       - 'type: feature'
   patch:
     labels:
+      - 'type: improvement'
       - 'type: bugs'
       - 'type: maintenance'
       - 'type: documentation'
