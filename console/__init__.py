@@ -1,7 +1,7 @@
 import click
 
 # Pritunl
-from .command import user
+from .commands import user
 
 @click.group()
 def run():

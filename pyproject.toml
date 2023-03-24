@@ -28,7 +28,7 @@ classifiers = [
 
 packages = [
     { include = "pritunl_api"},
-    { include = "cli"},
+    { include = "console"},
     { include = "README.md", format = "sdist" },
     { include = "LICENSE", format = "sdist" },
 ]
@@ -54,7 +54,7 @@ repl =  ["ipython", "ptpython"]
 cli = ["click", "rich"]
 
 [tool.poetry.scripts]
-pritunl-api-cli = { callable = "cli:run", extras = ["cli"] }
+pritunl-api-cli = { callable = "console:run", extras = ["cli"] }
 
 [build-system]
 requires = ["poetry-core"]
