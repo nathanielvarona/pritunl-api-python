@@ -42,6 +42,9 @@ def create_user(**kwargs):
             'email': user_email
         }
 
+        if kwargs['pin']:
+            user_data["pin"] = kwargs['pin']
+
         if kwargs['yubikey_id']:
             user_data["auth_type"] = "yubico"
             user_data["yubico_id"] = kwargs['yubikey_id'][:12]
