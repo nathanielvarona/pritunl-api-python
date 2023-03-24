@@ -138,9 +138,10 @@ Options:
   --org-name TEXT
   --user-name TEXT
   --user-email TEXT
+  --pin TEXT
   --yubikey-id TEXT
   --from-csv-file PATH
-  --help                Show this message and exit.              Show this message and exit
+  --help                Show this message and exit.
 ```
 
 #### Create User
