@@ -3,6 +3,9 @@
   color: 66ff66
 - name: 'type: feature'
   description: New feature is created.
+  color: 7FFBC6C
+- name: 'type: imporovement'
+  description: Minor improvement of a feature.
   color: 008A00
 - name: 'type: bugs'
   description: Partial fixes for under development feature.

@@ -20,6 +20,7 @@ def get_user(**kwargs):
 @click.option('--org-name')
 @click.option('--user-name')
 @click.option('--user-email')
+@click.option('--yubikey-id')
 @click.option('--from-csv-file', type=click.Path(exists=True))
 def create_user(**kwargs):
     user.create_user(**kwargs)

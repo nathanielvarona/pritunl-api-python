@@ -41,6 +41,11 @@ def create_user(**kwargs):
             'name': user_name,
             'email': user_email
         }
+
+        if kwargs['yubikey_id']:
+            user_data["auth_type"] = "yubico"
+            user_data["yubico_id"] = kwargs['yubikey_id'][:12]
+
         create_user = pritunl.user.post(org_id=org_id, data=user_data)
         for user in create_user:
             key = pritunl.key.get(org_id=user['organization'], usr_id=user['id'])
