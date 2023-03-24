@@ -32,7 +32,7 @@ categories:
   - title: '🔒 Security'
     label: 'type: security'
 
-  - title: '🧹 Chore'
+  - title: '🧹 Chores'
     label: 'type: chore'
 
 version-resolver:
