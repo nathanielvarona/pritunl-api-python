@@ -7,4 +7,4 @@ def profile_key(pritunl_obj, org_id, usr_id):
         key_view_url =  pritunl_obj.BASE_URL + key.json()['view_url']
         return key_uri_url, key_view_url
     else:
-        return None
+        return None, None
