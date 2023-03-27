@@ -1,7 +1,7 @@
 import click
 
 # Pritunl
-from .commands import user
+from .commands import users
 
 @click.group()
 def run():
@@ -13,7 +13,7 @@ def run():
 @click.option('--user-name')
 @click.option('--get-profile-key-only', is_flag=True)
 def get_user(**kwargs):
-    user.get_user(**kwargs)
+    users.get_user(**kwargs)
 
 # Create User
 @run.command()
@@ -24,7 +24,7 @@ def get_user(**kwargs):
 @click.option('--yubikey-id')
 @click.option('--from-csv-file', type=click.Path(exists=True))
 def create_user(**kwargs):
-    user.create_user(**kwargs)
+    users.create_user(**kwargs)
 
 # Update User
 @run.command()
@@ -32,14 +32,14 @@ def create_user(**kwargs):
 @click.option('--user-name')
 @click.option('--disable/--enable', default=False)
 def update_user(**kwargs):
-    user.update_user(**kwargs)
+    users.update_user(**kwargs)
 
 # Delete User
 @run.command()
 @click.option('--org-name')
 @click.option('--user-name')
 def delete_user(**kwargs):
-    user.delete_user(**kwargs)
+    users.delete_user(**kwargs)
 
 if __name__ == '__main__':
     run()

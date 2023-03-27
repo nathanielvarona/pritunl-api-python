@@ -2,8 +2,11 @@ import csv
 import json
 from urllib.parse import urlparse
 
-from . import pritunl
-from .utils.query import org_user
+from pritunl_api import Pritunl
+pritunl = Pritunl()
+
+from pritunl_api.utils.query import org_user
+from pritunl_api.utils.genkey import profile_key
 
 import click
 
@@ -14,7 +17,7 @@ console = Console(width=160)
 
 def get_user(**kwargs):
     org, user = org_user(pritunl_obj=pritunl, org_name=kwargs['org_name'], user_name=kwargs['user_name'])
-    key = pritunl.key.get(org_id=org['id'], usr_id=user['id'])
+    key_uri_url, key_view_url = profile_key(pritunl_obj=pritunl, org_id=org['id'], usr_id=user['id'])
 
     if kwargs['get_profile_key_only']:
         console.print(
@@ -23,8 +26,8 @@ def get_user(**kwargs):
             style="green bold", sep='\n'
         )
         console.print(
-            f"PROFILE URI (PRITUNNL CLIENT IMPORT PROFILE): '{urlparse(pritunl.BASE_URL)._replace(scheme='pritunl').geturl() + key.json()['uri_url']}'",
-            f"PROFILE URL (WEB VIEW PROFILE): '{pritunl.BASE_URL + key.json()['view_url']}'",
+            f"PROFILE URI (PRITUNNL CLIENT IMPORT PROFILE): '{key_uri_url}'",
+            f"PROFILE URL (WEB VIEW PROFILE): '{key_view_url}'",
             style="blue", sep='\n', end='\n \n', new_line_start=True
         )
     else:
@@ -51,13 +54,7 @@ def create_user(**kwargs):
 
         create_user = pritunl.user.post(org_id=org_id, data=user_data)
         for user in create_user:
-            key = pritunl.key.get(org_id=user['organization'], usr_id=user['id'])
-            context = {
-                'key_urls': {
-                    'uri_url': urlparse(pritunl.BASE_URL)._replace(scheme='pritunl').geturl() + key.json()['uri_url'],
-                    'view_url': pritunl.BASE_URL + key.json()['view_url'],
-                }
-            }
+            key_uri_url, key_view_url = profile_key(pritunl_obj=pritunl, org_id=org['id'], usr_id=user['id'])
             console.print(
                 f"USER `{user['name']}` WITH AN EMAIL `{user['email']}` FOR `{user['organization_name']}` ORGANIZATION IS SUCCESSFULLY CREATED!",
                 f"TEMPORARY PROFILE KEY (Expires after 24 hours)",
@@ -65,8 +62,8 @@ def create_user(**kwargs):
             )
 
             console.print(
-                f"PROFILE URI (PRITUNNL CLIENT IMPORT PROFILE): '{context['key_urls']['uri_url']}'",
-                f"PROFILE URL (WEB VIEW PROFILE): '{context['key_urls']['view_url']}'",
+                f"PROFILE URI (PRITUNNL CLIENT IMPORT PROFILE): '{key_uri_url}'",
+                f"PROFILE URL (WEB VIEW PROFILE): '{key_view_url}'",
                 style="blue", sep='\n', end='\n \n', new_line_start=True
             )
 
@@ -123,6 +120,7 @@ def update_user(**kwargs):
             f"USER `{user['name']}` FROM `{org['name']}` ORGANIZATION WAS SUCCESSFULLY `{'DISABLED' if response['disabled']==True else 'ENABLED'}`",
             style="green bold", sep='\n', new_line_start=True
         )
+
 
 def delete_user(**kwargs):
     org, user = org_user(pritunl_obj=pritunl, org_name=kwargs['org_name'], user_name=kwargs['user_name'])

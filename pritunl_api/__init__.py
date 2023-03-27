@@ -1,4 +1,4 @@
-__version__ = "1.1.4"
+__version__ = "1.1.5"
 
 import json
 import logging as log
@@ -10,6 +10,7 @@ import random
 import requests
 import time
 import uuid
+import os
 
 requests.packages.urllib3.disable_warnings(
     requests.packages.urllib3.exceptions.InsecureRequestWarning)
@@ -22,10 +23,10 @@ class PritunlErr(Exception):
 
 
 class Pritunl:
-    def __init__(self, url, token, secret):
-        self.BASE_URL = self.clean_url(url)
-        self.API_TOKEN = token
-        self.API_SECRET = secret
+    def __init__(self, url=None, token=None, secret=None):
+        self.BASE_URL = self.clean_url(os.environ.get('PRITUNL_BASE_URL') if not url else url)
+        self.API_TOKEN = os.environ.get('PRITUNL_API_TOKEN') if not token else token
+        self.API_SECRET = os.environ.get('PRITUNL_API_SECRET') if not secret else secret
 
         # Sub classes
         self.server = self.ServerClass(self)

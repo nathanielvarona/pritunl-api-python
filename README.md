@@ -31,19 +31,23 @@ export PRITUNL_API_TOKEN="XXXXXXXXXXXXXXXXXXXXXX"
 export PRITUNL_API_SECRET="XXXXXXXXXXXXXXXXXXXXX"
 ```
 
-Initializing an API object.
+Initializing an API Instance.
 
 ```python
-import os
+# Import the object
 from pritunl_api import Pritunl
 
-pritunl = Pritunl(
-  url=os.environ.get('PRITUNL_BASE_URL'),
-  token=os.environ.get('PRITUNL_API_TOKEN'),
-  secret=os.environ.get('PRITUNL_API_SECRET')
-)
+# Create an instance
+pritunl = Pritunl()
 
-# Your Pritunl API Client Object is now ready to use!
+## You can also initialize an instance by manually providing the arguments.
+# pritunl = Pritunl(
+#   url="<PRITUNL API URL>",
+#   token="<PRITUNL API TOKEN>",
+#   secret="<PRITUNL API SECRET>"
+# )
+
+# Your Pritunl API Client instance is now ready to use!
 pritunl.<FEATURE>.<METHOD>
 ```
 
