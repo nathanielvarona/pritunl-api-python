@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pritunl-api"
-version = "1.1.5"
+version = "1.1.6"
 description = "Pritunl API Client for Python"
 authors = ["Nathaniel Varona <nathaniel.varona+pypi@gmail.com>"]
 license = "MIT"
@@ -16,8 +16,6 @@ classifiers = [
     "Operating System :: POSIX :: Linux",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
@@ -42,7 +40,7 @@ Source = "https://github.com/nathanielvarona/pritunl-api-python"
 Tracker = "https://github.com/nathanielvarona/pritunl-api-python"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = ">=3.8,<4.0"
 requests = "2.28.2"
 ptpython = {version = "3.0.23", optional = true}
 ipython = {version = "8.11.0", optional = true}
