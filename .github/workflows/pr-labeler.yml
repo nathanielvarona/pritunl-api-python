@@ -11,4 +11,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: micnncim/action-label-syncer@v1
-      - uses: TimonVS/pr-labeler-action@v3
+      - uses: TimonVS/pr-labeler-action@v4
