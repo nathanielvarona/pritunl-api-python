@@ -13,7 +13,7 @@ def run(ctx):
 @run.command()
 @click.option('--org-name')
 @click.option('--user-name')
-@click.option('--get-profile-key-only', is_flag=True)
+@click.option('--show-advanced-details', is_flag=True)
 def get_user(**kwargs):
     users.get_user(**kwargs)
 
