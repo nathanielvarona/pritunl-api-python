@@ -4,7 +4,9 @@ import click
 from .commands import users
 
 @click.group()
-def run():
+@click.version_option(package_name='pritunl-api')
+@click.pass_context
+def run(ctx):
     pass
 
 # Get User
