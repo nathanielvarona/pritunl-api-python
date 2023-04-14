@@ -12,28 +12,32 @@ import click
 
 from rich import print_json
 from rich.console import Console
-console = Console(width=160)
+from rich.table import Table
+
+console = Console()
 
 
 def get_user(**kwargs):
     org, user = org_user(pritunl_obj=pritunl, org_name=kwargs['org_name'], user_name=kwargs['user_name'])
     key_uri_url, key_view_url = profile_key(pritunl_obj=pritunl, org_id=org['id'], usr_id=user['id'])
 
-    if kwargs['get_profile_key_only']:
-        console.print(
-            f"USER KEY INFORMATION FOR `{user['name']}` FROM `{org['name']}` ORGANIZATION",
-            f"TEMPORARY PROFILE KEY (Expires after 24 hours)",
-            style="green bold", sep='\n'
+    table = Table(
+        title=f"User Profile and Key Information:",
+        title_style="bold green",
+        title_justify="left"
         )
+
+    table.add_column("User Name", justify="left", style="cyan", no_wrap=True)
+    table.add_column("Organization", justify="left", style="magenta")
+    table.add_column("Profile URI [italic red](Expires after 24 hours)[/italic red]", justify="left", style="green")
+    table.add_column("Profile URL [italic red](Expires after 24 hours)[/italic red]", justify="left", style="green")
+    table.add_row(f"{user['name']}", f"{org['name']}", f"{key_uri_url}", f"{key_view_url}")
+    console.print(table)
+
+    if kwargs['show_advanced_details']:
         console.print(
-            f"PROFILE URI (PRITUNNL CLIENT IMPORT PROFILE): '{key_uri_url}'",
-            f"PROFILE URL (WEB VIEW PROFILE): '{key_view_url}'",
-            style="blue", sep='\n', end='\n \n', new_line_start=True
-        )
-    else:
-        console.print(
-            f"USER INFORMATION FOR `{user['name']}` FROM `{org['name']}` ORGANIZATION",
-            style="green bold", end='\n \n'
+            f"Advanced Details:",
+            style="blue bold"
         )
         print_json(json.dumps(user))
 
@@ -113,10 +117,6 @@ def update_user(**kwargs):
 
     if kwargs['pin']:
         user_data["pin"] = kwargs['pin']
-
-    if kwargs['yubikey_id']:
-        user_data["auth_type"] = "yubico"
-        user_data["yubico_id"] = kwargs['yubikey_id'][:12]
 
     if kwargs['disable']:
         user_data.update({'disabled': True})
