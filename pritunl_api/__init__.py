@@ -1,4 +1,5 @@
-__version__ = "1.1.6"
+from pkg_resources import get_distribution
+__version__ = get_distribution('pritunl-api').version
 
 import json
 import logging as log
