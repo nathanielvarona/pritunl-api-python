@@ -111,6 +111,13 @@ def update_user(**kwargs):
         'disabled': False,
     }
 
+    if kwargs['pin']:
+        user_data["pin"] = kwargs['pin']
+
+    if kwargs['yubikey_id']:
+        user_data["auth_type"] = "yubico"
+        user_data["yubico_id"] = kwargs['yubikey_id'][:12]
+
     if kwargs['disable']:
         user_data.update({'disabled': True})
 
