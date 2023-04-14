@@ -32,6 +32,8 @@ def create_user(**kwargs):
 @run.command()
 @click.option('--org-name')
 @click.option('--user-name')
+@click.option('--pin')
+@click.option('--yubikey-id')
 @click.option('--disable/--enable', default=False)
 def update_user(**kwargs):
     users.update_user(**kwargs)
