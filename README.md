@@ -174,7 +174,7 @@ pritunl-api-cli delete-user \
   --user-name developer_1
 ```
 
-#### Get User Information
+#### Get User Information with Profile Key
 
 ```bash
 pritunl-api-cli get-user \
@@ -182,13 +182,13 @@ pritunl-api-cli get-user \
   --user-name developer_1
 ```
 
-> Or get (regenerate) the profile key of a user
+> Or get user profile advanced information
 
 ```bash
 pritunl-api-cli get-user \
   --org-name develop-network \
   --user-name developer_1 \
-  --get-profile-key-only
+  --show-advanced-details
 ```
 
 #### Update a User
@@ -202,13 +202,14 @@ pritunl-api-cli update-user \
   --disable
 ```
 
-To enable a user
+To enable a user with new PIN
 
 ```bash
 pritunl-api-cli update-user \
   --org-name developer-network \
   --user-name developer_1 \
   --enable
+  --pin 123456
 ```
 
 ## API Development

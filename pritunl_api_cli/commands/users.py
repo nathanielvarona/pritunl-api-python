@@ -18,9 +18,6 @@ console = Console()
 
 
 def get_user(**kwargs):
-    org, user = org_user(pritunl_obj=pritunl, org_name=kwargs['org_name'], user_name=kwargs['user_name'])
-    key_uri_url, key_view_url = profile_key(pritunl_obj=pritunl, org_id=org['id'], usr_id=user['id'])
-
     table = Table(
         title=f"User Profile and Key Information:",
         title_style="bold green",
@@ -29,20 +26,42 @@ def get_user(**kwargs):
 
     table.add_column("User Name", justify="left", style="cyan", no_wrap=True)
     table.add_column("Organization", justify="left", style="magenta")
-    table.add_column("Profile URI [italic red](Expires after 24 hours)[/italic red]", justify="left", style="green")
     table.add_column("Profile URL [italic red](Expires after 24 hours)[/italic red]", justify="left", style="green")
-    table.add_row(f"{user['name']}", f"{org['name']}", f"{key_uri_url}", f"{key_view_url}")
-    console.print(table)
+    table.add_column("Profile URI [italic red](Expires after 24 hours)[/italic red]", justify="left", style="green")
 
-    if kwargs['show_advanced_details']:
-        console.print(
-            f"Advanced Details:",
-            style="blue bold"
-        )
-        print_json(json.dumps(user))
+    org, user = org_user(pritunl_obj=pritunl, org_name=kwargs['org_name'], user_name=kwargs['user_name'])
+
+    if user:
+        key_uri_url, key_view_url = profile_key(pritunl_obj=pritunl, org_id=org['id'], usr_id=user['id'])
+
+        table.add_row(f"{user['name']}", f"{org['name']}", f"{key_view_url}", f"{key_uri_url}")
+        console.print(table)
+
+        if kwargs['show_advanced_details']:
+            console.print(
+                f"Advanced Details:",
+                style="blue bold"
+            )
+            print_json(json.dumps(user))
+    else:
+        console.print(f"[bold red]No user profile found![/bold red]")
 
 
 def create_user(**kwargs):
+    table = Table(
+        title=f"User Profile Created and Key Information:",
+        title_style="bold green",
+        title_justify="left",
+        show_lines=True
+        )
+
+    table.add_column("Action", justify="left", style="green", no_wrap=True)
+    table.add_column("User Name", justify="left", style="cyan", no_wrap=True)
+    table.add_column("User Email", justify="left", style="cyan", no_wrap=True)
+    table.add_column("Organization", justify="left", style="magenta")
+    table.add_column("Profile URL [italic red](Expires after 24 hours)[/italic red]", justify="left", style="green")
+    table.add_column("Profile URI [italic red](Expires after 24 hours)[/italic red]", justify="left", style="green")
+
     def __create_user(org_id, user_name, user_email):
         user_data = {
             'name': user_name,
@@ -57,29 +76,22 @@ def create_user(**kwargs):
             user_data["yubico_id"] = kwargs['yubikey_id'][:12]
 
         create_user = pritunl.user.post(org_id=org_id, data=user_data)
+
         for user in create_user:
             key_uri_url, key_view_url = profile_key(pritunl_obj=pritunl, org_id=org['id'], usr_id=user['id'])
-            console.print(
-                f"USER `{user['name']}` WITH AN EMAIL `{user['email']}` FOR `{user['organization_name']}` ORGANIZATION IS SUCCESSFULLY CREATED!",
-                f"TEMPORARY PROFILE KEY (Expires after 24 hours)",
-                style="green bold", sep='\n', new_line_start=True
-            )
 
-            console.print(
-                f"PROFILE URI (PRITUNNL CLIENT IMPORT PROFILE): '{key_uri_url}'",
-                f"PROFILE URL (WEB VIEW PROFILE): '{key_view_url}'",
-                style="blue", sep='\n', end='\n \n', new_line_start=True
-            )
+            table.add_row(f"[green]Created[/green]", f"{user['name']}", f"{user['email']}", f"{user['organization_name']}", f"{key_view_url}", f"{key_uri_url}")
 
     if kwargs['org_name'] and kwargs['user_name'] and kwargs['user_email'] and not kwargs['from_csv_file']:
         org, user = org_user(pritunl_obj=pritunl, org_name=kwargs['org_name'], user_name=kwargs['user_name'])
+
         if not user:
             __create_user(org_id=org['id'], user_name=kwargs['user_name'], user_email=kwargs['user_email'])
         else:
-            console.print(
-                f"User `{kwargs['user_name']}` already exist for organization `{kwargs['org_name']}`, escaping user creation!",
-                style="red bold", new_line_start=True, end='\n \n'
-            )
+            key_uri_url, key_view_url = profile_key(pritunl_obj=pritunl, org_id=org['id'], usr_id=user['id'])
+            table.add_row(f"[yellow]Skipped[/yellow]", f"{user['name']}", f"{user['email']}", f"{user['organization_name']}", f"{key_view_url}", f"{key_uri_url}")
+
+        console.print(table)
 
     elif kwargs['from_csv_file'] and not kwargs['org_name'] and not kwargs['user_name'] and not kwargs['user_email']:
         csv_list = []
@@ -93,11 +105,10 @@ def create_user(**kwargs):
             if not user:
                 __create_user(org_id=org['id'], user_name=row['Username'], user_email=row['Email'])
             else:
-                console.print(
-                    f"User `{row['Username']}` already exist for organization `{row['Organization']}`, escaping user creation!",
-                    style="red bold"
-                )
-            console.rule()
+                key_uri_url, key_view_url = profile_key(pritunl_obj=pritunl, org_id=org['id'], usr_id=user['id'])
+                table.add_row(f"[yellow]Skipped[/yellow]", f"{user['name']}", f"{user['email']}", f"{user['organization_name']}", f"{key_view_url}", f"{key_uri_url}")
+
+        console.print(table)
 
     else:
         if not kwargs['org_name'] and not kwargs['user_name'] and not kwargs['user_email'] and not kwargs['from_csv_file']:
@@ -106,35 +117,66 @@ def create_user(**kwargs):
             raise click.UsageError('Error: You entered an invalid combination of options.')
 
 
-
 def update_user(**kwargs):
-    org, user = org_user(pritunl_obj=pritunl, org_name=kwargs['org_name'], user_name=kwargs['user_name'])
-    user_data = {
-        'name': user['name'],
-        'email': user['email'],
-        'disabled': False,
-    }
 
-    if kwargs['pin']:
-        user_data["pin"] = kwargs['pin']
-
-    if kwargs['disable']:
-        user_data.update({'disabled': True})
-
-    response = pritunl.user.put(org_id=org['id'], usr_id=user['id'], data=user_data)
-    if response:
-        console.print(
-            f"USER `{user['name']}` FROM `{org['name']}` ORGANIZATION WAS SUCCESSFULLY `{'DISABLED' if response['disabled']==True else 'ENABLED'}`",
-            style="green bold", sep='\n', new_line_start=True
+    table = Table(
+        title=f"User Profile Update and Key Information:",
+        title_style="bold green",
+        title_justify="left",
         )
+
+    table.add_column("Action", justify="left", style="green", no_wrap=True)
+    table.add_column("User Name", justify="left", style="cyan", no_wrap=True)
+    table.add_column("Organization", justify="left", style="magenta")
+    table.add_column("Profile URL [italic red](Expires after 24 hours)[/italic red]", justify="left", style="green")
+    table.add_column("Profile URI [italic red](Expires after 24 hours)[/italic red]", justify="left", style="green")
+
+    org, user = org_user(pritunl_obj=pritunl, org_name=kwargs['org_name'], user_name=kwargs['user_name'])
+
+    if user:
+        user_data = {
+            'name': user['name'],
+            'email': user['email'],
+            'disabled': False,
+        }
+
+        if kwargs['pin']:
+            user_data["pin"] = kwargs['pin']
+
+        if kwargs['disable']:
+            user_data.update({'disabled': True})
+
+        response = pritunl.user.put(org_id=org['id'], usr_id=user['id'], data=user_data)
+
+        if response:
+            key_uri_url, key_view_url = profile_key(pritunl_obj=pritunl, org_id=org['id'], usr_id=user['id'])
+            table.add_row(f"[yellow]Updated[/yellow]", f"{user['name']}", f"{user['organization_name']}", f"{key_view_url}", f"{key_uri_url}")
+            console.print(table)
+
+    else:
+        console.print(f"[bold red]No user profile to update![/bold red]")
 
 
 def delete_user(**kwargs):
-    org, user = org_user(pritunl_obj=pritunl, org_name=kwargs['org_name'], user_name=kwargs['user_name'])
-    response = pritunl.user.delete(org_id=org['id'], usr_id=user['id'])
 
-    if response:
-        console.print(
-            f"USER `{user['name']}` FROM `{org['name']}` ORGANIZATION WAS SUCCESSFULLY DELETED",
-            style="green bold", sep='\n', new_line_start=True
+    table = Table(
+        title=f"User Profile Delete:",
+        title_style="bold green",
+        title_justify="left",
         )
+
+    table.add_column("Action", justify="left", style="green", no_wrap=True)
+    table.add_column("User Name", justify="left", style="cyan", no_wrap=True)
+    table.add_column("Organization", justify="left", style="magenta")
+
+    org, user = org_user(pritunl_obj=pritunl, org_name=kwargs['org_name'], user_name=kwargs['user_name'])
+
+    if user:
+        response = pritunl.user.delete(org_id=org['id'], usr_id=user['id'])
+
+        if response:
+            table.add_row(f"[red]Deleted[/red]", f"{user['name']}", f"{user['organization_name']}")
+            console.print(table)
+
+    else:
+        console.print(f"[bold red]No user profile to delete![/bold red]")
