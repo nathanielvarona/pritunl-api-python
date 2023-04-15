@@ -1,6 +1,7 @@
 import click
 
 # Pritunl
+from .commands import connection
 from .commands import users
 
 @click.group()
@@ -8,6 +9,10 @@ from .commands import users
 @click.pass_context
 def run(ctx):
     pass
+
+@run.command()
+def status():
+    connection.status()
 
 # Get User
 @run.command()

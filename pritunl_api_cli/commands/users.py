@@ -2,8 +2,7 @@ import csv
 import json
 from urllib.parse import urlparse
 
-from pritunl_api import Pritunl
-pritunl = Pritunl()
+from . import pritunl
 
 from pritunl_api.utils.query import org_user
 from pritunl_api.utils.genkey import profile_key
