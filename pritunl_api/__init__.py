@@ -25,9 +25,9 @@ class PritunlErr(Exception):
 
 class Pritunl:
     def __init__(self, url=None, token=None, secret=None):
-        self.BASE_URL = self.clean_url(os.environ.get('PRITUNL_BASE_URL') if not url else url)
-        self.API_TOKEN = os.environ.get('PRITUNL_API_TOKEN') if not token else token
-        self.API_SECRET = os.environ.get('PRITUNL_API_SECRET') if not secret else secret
+        self.BASE_URL = self.clean_url(os.environ['PRITUNL_BASE_URL'] if not url else url)
+        self.API_TOKEN = os.environ['PRITUNL_API_TOKEN'] if not token else token
+        self.API_SECRET = os.environ['PRITUNL_API_SECRET'] if not secret else secret
 
         # Sub classes
         self.server = self.ServerClass(self)
@@ -304,6 +304,16 @@ class Pritunl:
             self.r = self.auth_request(method="GET", path="/check")
             if self.r.status_code == 200:
                 return True
+            else:
+                raise PritunlErr("{0}:{1}".format(sys._getframe().f_code.co_name, self.root.BASE_URL))
+        except Exception:
+            raise PritunlErr("{0}:{1}".format(sys._getframe().f_code.co_name, self.root.BASE_URL))
+
+    def status(self):
+        try:
+            self.r = self.auth_request(method="GET", path="/status")
+            if self.r.status_code == 200:
+                return self.r.json()
             else:
                 raise PritunlErr("{0}:{1}".format(sys._getframe().f_code.co_name, self.root.BASE_URL))
         except Exception:

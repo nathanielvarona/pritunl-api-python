@@ -120,12 +120,14 @@ pritunl-api-cli --help
 Usage: pritunl-api-cli [OPTIONS] COMMAND [ARGS]...
 
 Options:
-  --help  Show this message and exit.
+  --version  Show the version and exit.
+  --help     Show this message and exit.
 
 Commands:
   create-user
   delete-user
   get-user
+  status
   update-user
 ```
 
