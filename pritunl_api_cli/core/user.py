@@ -20,7 +20,8 @@ def get(**kwargs):
     table = Table(
         title=f"User Profile and Key Information:",
         title_style="bold green",
-        title_justify="left"
+        title_justify="left",
+        show_lines=True
         )
 
     table.add_column("Status", justify="left", style="green", no_wrap=True)
