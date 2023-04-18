@@ -1,4 +1,4 @@
-# Pritunl API Client for Python 3
+# Pritunl API Client for Python
 
 This is a simple [Pritunl](https://pritunl.com/) API Client written in Python 3.
 
@@ -119,26 +119,44 @@ pritunl-api-cli --help
 ```txt
 Usage: pritunl-api-cli [OPTIONS] COMMAND [ARGS]...
 
+  Pritunl API CLI
+
 Options:
   --version  Show the version and exit.
   --help     Show this message and exit.
 
 Commands:
-  create-user
-  delete-user
-  get-user
-  status
-  update-user
+  api
+  user
 ```
 
-For available command options and syntax, use the feature command help option.
+To show the available commands for a feature
 
 ```bash
-pritunl-api-cli create-user --help
+pritunl-api-cli user --help
+```
+
+```txt
+Usage: pritunl-api-cli user [OPTIONS] COMMAND [ARGS]...
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  create
+  delete
+  get
+  update
+```
+
+For available command options and syntax, use the feature command argument help option.
+
+```bash
+pritunl-api-cli user create --help
 ```
 
 ```text
-Usage: pritunl-api-cli create-user [OPTIONS]
+Usage: pritunl-api-cli user create [OPTIONS]
 
 Options:
   --org-name TEXT
@@ -146,73 +164,28 @@ Options:
   --user-email TEXT
   --pin TEXT
   --yubikey-id TEXT
-  --from-csv-file PATH
-  --help                Show this message and exit.
+  --from-csv PATH
+  --help             Show this message and exit.                Show this message and exit.
 ```
-
-#### Create User
 
 _Example 1: Create a Single User_
 
 ```bash
-pritunl-api-cli create-user \
-  --org-name develop-network \
-  --user-name developer_1 \
-  --user-email developer_1@domain.tld
+pritunl-api-cli user create \
+  --org-name pritunl-dev \
+  --user-name john.doe \
+  --user-email john.doe@domain.tld
 ```
 
 _Example 2: Create Users from CSV_
 
 ```bash
-pritunl-api-cli create-user \
-  --from-csv-file ./users.csv
+pritunl-api-cli user create \
+  --from-csv ./users.csv
 ```
 
-#### Delete User
+> For more comprehensive CLI examples checkout the blog post [Managing Enterprise VPN using Pritunl API CLI](http://nathanielvarona.github.io/posts/managing-enterprise-vpn-using-pritunl-api-cli/).
 
-```bash
-pritunl-api-cli delete-user \
-  --org-name develop-network \
-  --user-name developer_1
-```
-
-#### Get User Information with Profile Key
-
-```bash
-pritunl-api-cli get-user \
-  --org-name develop-network \
-  --user-name developer_1
-```
-
-> Or get user profile advanced information
-
-```bash
-pritunl-api-cli get-user \
-  --org-name develop-network \
-  --user-name developer_1 \
-  --show-advanced-details
-```
-
-#### Update a User
-
-To disable a user
-
-```bash
-pritunl-api-cli update-user \
-  --org-name develop-network \
-  --user-name developer_1 \
-  --disable
-```
-
-To enable a user with new PIN
-
-```bash
-pritunl-api-cli update-user \
-  --org-name developer-network \
-  --user-name developer_1 \
-  --enable
-  --pin 123456
-```
 
 ## API Development
 

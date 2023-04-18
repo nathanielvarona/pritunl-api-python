@@ -1,4 +1,4 @@
-def org_user(pritunl_obj, org_name, user_name=None):
+def org_user(pritunl, org_name, user_name=None):
     def __get_org_by_name(orgs_obj, org_name):
         for org in orgs_obj:
             if org['name'] == org_name:
@@ -11,9 +11,11 @@ def org_user(pritunl_obj, org_name, user_name=None):
                 return user
         return None
 
-    org = __get_org_by_name(pritunl_obj.organization.get(), org_name)
+    org = __get_org_by_name(pritunl.organization.get(), org_name)
+    user = pritunl.user.get(org_id=org['id'])
 
     if user_name:
-        user = __get_user_by_name(pritunl_obj.user.get(org_id=org['id']), user_name)
+        user = __get_user_by_name(pritunl.user.get(org_id=org['id']), user_name)
         return org, user
-    return org
+
+    return org, user
