@@ -1,6 +1,6 @@
 # Pritunl API Client for Python
 
-This is a simple [Pritunl](https://pritunl.com/) API Client written in Python 3.
+This is a simple [Pritunl](https://pritunl.com/) API Client written in Python.
 
 You need to refer to Pritunl [API Documentation](https://docs.pritunl.com/docs/api) to understand how to use this. This API client uses almost the same command as the [API Handlers](https://github.com/pritunl/pritunl-web/tree/master/handlers).
 
@@ -27,8 +27,8 @@ Before using the API library including the use of the CLI feature, we need to pr
 
 ```bash
 export PRITUNL_BASE_URL="https://vpn.domain.tld/"
-export PRITUNL_API_TOKEN="XXXXXXXXXXXXXXXXXXXXXX"
-export PRITUNL_API_SECRET="XXXXXXXXXXXXXXXXXXXXX"
+export PRITUNL_API_TOKEN="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+export PRITUNL_API_SECRET="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 ```
 
 Initializing an API Instance.
@@ -165,7 +165,7 @@ Options:
   --pin TEXT
   --yubikey-id TEXT
   --from-csv PATH
-  --help             Show this message and exit.                Show this message and exit.
+  --help             Show this message and exit.
 ```
 
 _Example 1: Create a Single User_
@@ -184,7 +184,7 @@ pritunl-api-cli user create \
   --from-csv ./users.csv
 ```
 
-> For more comprehensive CLI examples checkout the blog post [Managing Enterprise VPN using Pritunl API CLI](http://nathanielvarona.github.io/posts/managing-enterprise-vpn-using-pritunl-api-cli/).
+> For more CLI examples checkout the blog post [Managing Enterprise VPN using Pritunl API CLI](https://nathanielvarona.github.io/posts/managing-enterprise-vpn-using-pritunl-api-cli/).
 
 
 ## API Development
