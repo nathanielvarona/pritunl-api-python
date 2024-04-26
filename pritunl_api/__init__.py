@@ -120,9 +120,12 @@ class Pritunl:
             self.headers = None
             self.root = root
 
-        def get(self):
+        def get(self, org_id=None):
             try:
-                self.r = self.root.auth_request(method="GET", path="/organization")
+                if org_id:
+                    self.r = self.root.auth_request(method="GET", path="/organization/{0}".format(org_id))
+                else:
+                    self.r = self.root.auth_request(method="GET", path="/organization")
                 if self.r.status_code == 200:
                     return self.r.json()
                 else:
