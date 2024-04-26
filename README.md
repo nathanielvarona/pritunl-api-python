@@ -232,3 +232,11 @@ docker run --rm -it \
 This API client is not fully complete. Some features are missing, feel free to fork and pull requests to add new features.
 
 Tested working on **`Pritunl v1.30.3354.99`**.
+
+## Alternative API Clients
+* Go - [Pritunl API Client for Go](https://github.com/nathanielvarona/pritunl-api-go) by [@nathanielvarona](https://github.com/nathanielvarona)
+* Shell - [Pritunl API Shell](https://github.com/nathanielvarona/pritunl-api-shell) _(a Curl Wrapper)_ by [@nathanielvarona](https://github.com/nathanielvarona)
+* Ruby - [Pritunl API Client](https://github.com/eterry1388/pritunl_api_client) by [@eterry1388](https://github.com/eterry1388)
+
+> [!NOTE]
+> _This Python package is a fork from [Pritunl API client for Python 3](https://github.com/ijat/pritunl-api-python) by [@ijat](https://github.com/ijat)_
