@@ -1,14 +1,17 @@
 name: Merge Request Labeler
 on:
   pull_request:
-    types: [opened]
+    types: [opened, synchronize]
 
 jobs:
   pr-labeler:
-    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-22.04
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: micnncim/action-label-syncer@v1
-      - uses: TimonVS/pr-labeler-action@v4
+      - uses: TimonVS/pr-labeler-action@v5
