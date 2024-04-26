@@ -1,0 +1,46 @@
+name: Build the Package Release Assets
+
+on:
+  release:
+    types: [released]
+
+jobs:
+  build-package-and-release-assets:
+    permissions:
+      contents: write
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Setup Poetry and Configure PyPI
+        run: |
+          # Setup Poetry
+          pipx install poetry==1.8.2
+
+          # Configure PyPI Repository and Credentials
+          poetry config repositories.pypi ${{ secrets.PYPI_REPOSITORIES }}
+          poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
+
+      - name: Build the Package
+        run: |
+          # Build the Package
+          poetry build --output=./dist
+
+      - name: Publish the Package to PyPI
+        run: |
+          # Publish the Package to PyPI
+          poetry publish --repository pypi
+
+      - name: Upload as Release Assets
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            ./dist/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
