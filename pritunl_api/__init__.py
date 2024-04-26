@@ -45,7 +45,7 @@ class Pritunl:
                 if org_id and usr_id:
                     self.r = self.root.auth_request(method="GET", path="/key/{0}/{1}".format(org_id, usr_id))
                 if self.r.status_code == 200:
-                    return self.r
+                    return self.r.json()
                 raise PritunlErr("{0}:{1}".format(sys._getframe().f_code.co_name, self.root.BASE_URL))
             except Exception:
                 raise PritunlErr("{0}:{1}".format(sys._getframe().f_code.co_name, self.root.BASE_URL))
