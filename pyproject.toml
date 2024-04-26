@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pritunl-api"
-version = "1.1.10"
+version = "1.1.11"
 description = "Pritunl API Client for Python"
 authors = ["Nathaniel Varona <nathaniel.varona+pypi@gmail.com>"]
 license = "MIT"
