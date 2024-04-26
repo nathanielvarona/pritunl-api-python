@@ -27,8 +27,8 @@ Before using the API library including the use of the CLI feature, we need to pr
 
 ```bash
 export PRITUNL_BASE_URL="https://vpn.domain.tld/"
-export PRITUNL_API_TOKEN="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-export PRITUNL_API_SECRET="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+export PRITUNL_API_TOKEN="<PRITUNL API TOKEN>"
+export PRITUNL_API_SECRET="<PRITUNL API SECRET>"
 ```
 
 Initializing an API Instance.
@@ -42,7 +42,7 @@ pritunl = Pritunl()
 
 ## You can also initialize an instance by manually providing the arguments.
 # pritunl = Pritunl(
-#   url="<PRITUNL API URL>",
+#   url="<PRITUNL BASE URL>",
 #   token="<PRITUNL API TOKEN>",
 #   secret="<PRITUNL API SECRET>"
 # )
