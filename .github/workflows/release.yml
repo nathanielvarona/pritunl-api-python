@@ -29,12 +29,12 @@ jobs:
       - name: Build the Package
         run: |
           # Build the Package
-          poetry build --output=./dist
+          poetry build --output ./dist
 
       - name: Publish the Package to PyPI
         run: |
           # Publish the Package to PyPI
-          poetry publish --repository pypi
+          poetry publish --dist-dir ./dist --repository pypi
 
       - name: Upload as Release Assets
         uses: softprops/action-gh-release@v2
